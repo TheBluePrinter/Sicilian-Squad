@@ -5,11 +5,11 @@ import bcrypt from "bcrypt";
 
 const SECRET_KEY = "secret_key";
 
-function generateJWT(userId, username, isAdmin) {
+function generateJWT(userId, username, user_admin) {
   const payload = {
     id: userId,
-    username: username,
-    isAdmin: isAdmin,
+    username,
+    user_admin,
   };
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1h" });
   return token;

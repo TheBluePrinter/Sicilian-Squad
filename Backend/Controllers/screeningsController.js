@@ -23,5 +23,26 @@ export const addScreeningsHandler = (req, res) => {
 };
 
 export const getAllScreeningsHandler = (req, res) => {
-  const screenings = getAllScreenings;
+  try {
+    const screenings = getAllScreenings();
+    res.send(screenings);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const getScreeningByIdHandler = (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const screening = getScreeningById(id);
+
+    if (screening) {
+      res.send(screening);
+    } else {
+      res.status(404).json({ message: "No screening found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
 };

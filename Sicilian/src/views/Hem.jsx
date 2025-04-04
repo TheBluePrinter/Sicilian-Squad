@@ -13,31 +13,31 @@ export const Hem = () => {
 
   useEffect(() => {
     getMovies()
-      .then(data => {
+      .then((data) => {
         setMovies(data);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         setError(err.message || "Något gick fel");
         setLoading(false);
       });
   }, []);
 
-  const handleDelete = async movieId => {
-    if (!user?.isAdmin) {
+  const handleDelete = async (movieId) => {
+    if (!user?.user_admin) {
       setError("Du måste vara admin för att kunna radera filmer");
       return;
     }
     try {
       await deleteMovie(movieId);
-      getMovies().then(data => setMovies(data));
+      getMovies().then((data) => setMovies(data));
     } catch (err) {
       setError(err.message || "Något gick fel");
     }
   };
 
   const handleAddMovie = () => {
-    navigate("/addmovie"); 
+    navigate("/addmovie");
   };
 
   if (loading) return <div>Laddar filmer...</div>;
@@ -46,16 +46,16 @@ export const Hem = () => {
   return (
     <div>
       <h1>Alla Filmer</h1>
-      {user && user.isAdmin ===1 && (
+      {user && user.user_admin === 1 && (
         <button onClick={handleAddMovie} className="admin-add-button">
           Lägg till film
         </button>
       )}
       <div className="movie-cards-container">
-        {movies.map(movie => (
+        {movies.map((movie) => (
           <div key={movie.movie_id} className="movie-card-wrapper">
             <MovieCard movie={movie} />
-            {user && user.isAdmin ===1 && (
+            {user && user.user_admin === 1 && (
               <button
                 className="delete-button"
                 onClick={() => handleDelete(movie.movie_id)}

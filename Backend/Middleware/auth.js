@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 const SECRET_KEY = "secret_key";
 
-export const authMiddleware = (req, res, next) => {
+const authMiddleware = (req, res, next) => {
   const token = req.cookies.token;
 
   if (!token) {
@@ -19,3 +19,5 @@ export const authMiddleware = (req, res, next) => {
     res.status(403).json({ message: "Invalid or expired token." });
   }
 };
+
+export default authMiddleware;
