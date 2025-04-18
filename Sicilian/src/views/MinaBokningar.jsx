@@ -1,7 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../context/UserContext';
-import { getDetailedBookingsByUserId } from '../api/apiBookings';
-import { BookingListItem } from '../components/BookingListItem';
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../context/UserContext";
+import { getDetailedBookingsByUserId } from "../api/apiBookings";
+import { BookingListItem } from "../components/BookingListItem";
+import { BookingGuestLookUp } from "../components/BookingGuestLookUp";
 
 export const MinaBokningar = () => {
   const { user, isLoading } = useContext(UserContext);
@@ -19,7 +20,7 @@ export const MinaBokningar = () => {
         setPastBookings(data.pastBookings || []);
         setLoadingBookings(false);
       } catch (error) {
-        console.error('Fel vid hämtning av bokningar:', error);
+        console.error("Fel vid hämtning av bokningar:", error);
         setLoadingBookings(false);
       }
     };
@@ -27,12 +28,14 @@ export const MinaBokningar = () => {
   }, [user]);
 
   if (isLoading) return <p>Laddar användarinfo...</p>;
-  if (!user) return <p>Du måste vara inloggad för att se dina bokningar.</p>;
+  if (!user) {
+    return <BookingGuestLookUp />;
+  }
   if (loadingBookings) return <p>Hämtar bokningar...</p>;
 
   return (
-    <div className='section-title-wrapper'>
-      <h2 className='section-title'>Kommande bokningar</h2>
+    <div className="section-title-wrapper">
+      <h2 className="section-title">Kommande bokningar</h2>
       {upcomingBookings && upcomingBookings.length > 0 ? (
         <ul>
           {upcomingBookings.map(booking => (
@@ -43,7 +46,7 @@ export const MinaBokningar = () => {
         <p>Inga kommande bokningar hittades.</p>
       )}
 
-      <h2 className='section-title'>Bokningshistorik</h2>
+      <h2 className="section-title">Bokningshistorik</h2>
       {pastBookings && pastBookings.length > 0 ? (
         <ul>
           {pastBookings.map(booking => (

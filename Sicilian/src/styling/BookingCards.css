@@ -1,32 +1,28 @@
-/* Grundläggande layout och animation */
 .booking-confirmation-wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 2rem;
+  align-items: center; 
+  width: 100%;
+  padding: 2rem; 
+  box-sizing: border-box;
 }
 
-/* Bokningskortet med skugga och animation */
 .booking-card {
   background-color: #1e1f29;
   color: #f4f4f4;
-  max-width: 500px;
+  max-width: 600px; 
   width: 100%;
   padding: 3rem;
   border-radius: 1.5rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 204, 112, 0.1);
-  animation: fade-in 0.6s ease-in-out 0.2s 1 normal both;
   text-align: center;
   position: relative;
   overflow: hidden;
-  animation: fade-in 0.6s ease-in-out 0.2s both;
   transition: box-shadow 0.3s ease-in-out;
 }
 
 .booking-card:hover {
   box-shadow: 0 0 12px #ffcc70;
-  transition: box-shadow 0.3s ease-in-out;
 }
 
 /* Animationseffekt */
@@ -78,7 +74,7 @@
 
 /* Underlinje under titeln */
 .booking-title::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -0.75rem;
   left: 50%;
@@ -118,4 +114,14 @@
   font-weight: 700;
   color: #ffcc70;
   margin-top: 0.5rem;
+}
+
+.booking-confirmation-wrapper.compact {
+  min-height: unset;
+  padding: 2rem 0;
+  align-items: flex-start;
+}
+.booking-lookup__result .booking-confirmation-wrapper .booking-card {
+  max-width: none !important;
+  /* width:100% är redan default i .booking-card */
 }

@@ -9,8 +9,6 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const checkUser = async () => {
       try {
-        // Vänta lite för att ge webbläsaren tid att uppdatera cookie-datan
-        await new Promise(resolve => setTimeout(resolve, 200));
         const response = await fetch("http://localhost:3000/user/whoami", {
           method: "GET",
           credentials: "include",
